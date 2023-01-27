@@ -1,7 +1,9 @@
+#pragma once
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <cmath>
 #include <SDL2/SDL_ttf.h>
+
 #include "ltexture.h"
 #include "camera.h"
 #include "gameobject.h"
@@ -25,6 +27,10 @@ class Player: public GameObject
         void LoadCamera(Camera* camera);
 
         void DisableInput();
+
+        void GetPos(int* xout, int* yout);
+        void GetSize(int* hout, int* wout);
+
     private:
         bool movement_enabled;
         int x;

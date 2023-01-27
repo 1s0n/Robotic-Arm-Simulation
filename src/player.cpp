@@ -4,7 +4,7 @@ Player::Player()
 {
     movement_enabled = true;
     x = 200;
-    y = 200;
+    y = 400;
     mRect.h = 50;
     mRect.w = 50;
 
@@ -39,7 +39,7 @@ void Player::Draw(SDL_Renderer* renderer)
     mRect.y = renderedY;
     SDL_SetRenderDrawColor(renderer, colour[0], colour[1], colour[2], colour[3]);
     // SDL_RenderFillRect(renderer, &rect);
-    mTexture.getTexture();
+    // mTexture.getTexture();
     SDL_RenderCopyEx(renderer, mTexture.getTexture(), NULL, &mRect, rotatedAngle, NULL, SDL_FLIP_NONE);
 }
 
@@ -356,4 +356,16 @@ void Player::LoadCamera(Camera* camera)
 void Player::DisableInput()
 {
     movement_enabled = false;
+}
+
+void Player::GetPos(int* xout, int* yout)
+{
+    *xout = x;
+    *yout = y;
+}
+
+void Player::GetSize(int* hout, int* wout)
+{
+    *hout = mRect.h;
+    *wout = y;
 }

@@ -5,6 +5,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "player.h"
+#include "line.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 1200
@@ -35,7 +36,7 @@ int main(int argv, char** args)
     Player ArmOrigin;
     std::cout << "[*] Starting game loop...\n";
 
-    player.LoadTexture("assets/BlackSquare.png", renderer);
+    player.LoadTexture("assets/Player.png", renderer);
     ArmOrigin.LoadTexture("assets/Origin.png", renderer);
     // player.RotateTo(360);
 
@@ -57,7 +58,20 @@ int main(int argv, char** args)
     ArmOrigin.LoadCamera(&camera);
     ArmOrigin.DisableInput();
 
-    ArmOrigin.MoveIP(300, 0);
+    ArmOrigin.MoveIP(600, 0);
+
+    int playerX;
+    int playerY;
+
+    int originX;
+    int originY;
+    
+    player.GetPos(&playerX, &playerY);
+    ArmOrigin.GetPos(&originX, &originY);
+
+    Line line;
+    line.SetThickness(20);
+    line.LoadTexture("assets/BlackSquare.png", renderer);
 
     while (running)
     {
@@ -80,12 +94,19 @@ int main(int argv, char** args)
         player.Update();
         ArmOrigin.Update();
 
+        player.GetPos(&playerX, &playerY);
+        ArmOrigin.GetPos(&originX, &originY);
+
+        
+
         // Draw game
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer);
 
         player.Draw(renderer);
         ArmOrigin.Draw(renderer);
+        line.Draw(playerX, playerY, originX, originY, renderer);
+
 
         player.RenderDebugInfo(font, renderer);
 
