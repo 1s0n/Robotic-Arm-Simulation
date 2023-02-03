@@ -1,8 +1,8 @@
 # TODO: INSTALL SDL_IMAGE AND TFF
 echo [Compile.sh] Deleting old executable...
-del build\game.exe
+rm build/game
 echo [Compile.sh] Compiling game...
-g++ -g src/*.cpp -o build/game -Iinclude `sdl2-config --cflags --libs`
+g++ -g src/*.cpp -o build/game -Iinclude `sdl2-config --cflags --libs` -lSDL2_image -lSDL2_ttf
 echo [Compile.sh] Running game...
 
 chmod +x build/game 

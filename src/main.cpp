@@ -34,10 +34,12 @@ int main(int argv, char** args)
 
     Player player;
     Player ArmOrigin;
+    Player ArmJoint;
     std::cout << "[*] Starting game loop...\n";
 
-    player.LoadTexture("assets/Player.png", renderer);
+    player.LoadTexture("assets/Player.jpg", renderer);
     ArmOrigin.LoadTexture("assets/Origin.png", renderer);
+    ArmJoint.LoadTexture("assets/Joint.png", renderer);
     // player.RotateTo(360);
 
     Camera camera;
@@ -57,8 +59,11 @@ int main(int argv, char** args)
     player.LoadCamera(&camera);
     ArmOrigin.LoadCamera(&camera);
     ArmOrigin.DisableInput();
+    ArmJoint.LoadCamera(&camera);
+    ArmJoint.DisableInput();
 
     ArmOrigin.MoveIP(600, 0);
+    ArmJoint.MoveIP(300, -20);
 
     int playerX;
     int playerY;
@@ -66,8 +71,12 @@ int main(int argv, char** args)
     int originX;
     int originY;
     
+    int jointX;
+    int jointY;
+
     player.GetPos(&playerX, &playerY);
     ArmOrigin.GetPos(&originX, &originY);
+    ArmJoint.GetPos(&jointX, &jointY);
 
     Line line;
     line.SetThickness(20);
@@ -84,6 +93,7 @@ int main(int argv, char** args)
             }
 
             player.HandleInput(event);
+            line.HandleInput(event);
         }   
 
         // To quit the game instantly preventing problems in the loop...
@@ -93,10 +103,12 @@ int main(int argv, char** args)
         // Update game
         player.Update();
         ArmOrigin.Update();
+        ArmJoint.Update();
+        line.Update();
 
         player.GetPos(&playerX, &playerY);
         ArmOrigin.GetPos(&originX, &originY);
-
+        ArmJoint.GetPos(&jointX, &jointY);
         
 
         // Draw game
@@ -105,9 +117,11 @@ int main(int argv, char** args)
 
         player.Draw(renderer);
         ArmOrigin.Draw(renderer);
-        line.Draw(playerX, playerY, originX, originY, renderer);
+        
+        ArmJoint.Draw(renderer);
 
-
+        line.Draw(playerX, playerY, jointX, jointY, renderer);
+        
         player.RenderDebugInfo(font, renderer);
 
         SDL_RenderPresent(renderer);
