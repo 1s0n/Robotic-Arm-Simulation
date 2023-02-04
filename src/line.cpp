@@ -37,11 +37,24 @@ void Line::Draw(int p1x, int p1y, int p2x, int p2y, SDL_Renderer* renderer)
 
     flipRotation();
 
-    std::cout << "   " << rotatedAngle << "\n";
+    std::cout << "   " << rotatedAngle << "   ";
 
     // HARDCODED VALUE 25 = half of player size (50x50)
     mRect.x = p1x + 25; 
     mRect.y = p1y + 25;
+
+    int distX = p2x - mRect.x;
+    int distY = p2y - mRect.y;
+
+    distX = pow(distX, 2);
+    distY = pow(distY, 2);
+
+    int dist = distX + distY;
+    dist = sqrt(dist);
+
+    std::cout << dist;
+
+    std::cout << "\n";
     
     // TODO: CHANGE THIS
 
